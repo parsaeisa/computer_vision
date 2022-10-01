@@ -1,6 +1,6 @@
 # Python
 
-## in this file you can see things that I learnt from python . 
+in this file you can see things that I learnt from python . 
 
 #### Get relative path to a file 
 
