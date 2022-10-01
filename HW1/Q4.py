@@ -26,7 +26,7 @@ img_resized = cv2.resize(image_rgb , (HEIGHT , WIDTH))
 
 ## draw lines 
 COLOR = (255, 0, 0)
-THICKNESS = 1
+THICKNESS = 2
 
 image = cv2.line(img_resized, (5,5), (565,5), COLOR, THICKNESS)
 image = cv2.line(img_resized, (5,5), (5,285), COLOR, THICKNESS)
