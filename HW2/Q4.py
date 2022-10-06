@@ -7,25 +7,6 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 corner_count_x = 24
 corner_count_y = 17
 
-# undistort with just one image 
-dirname = os.path.dirname(__file__)
-path = os.path.join(dirname , 'images/img1.png' )
-
-img = cv2.imread(path ,1)
-print(img.shape)
-
-gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
-
-corners_found , corners = cv2.findChessboardCorners(gray , (corner_count_y,corner_count_x) , None )
-
-if corners_found :
-    improved_corners = cv2.cornerSubPix(gray , corners , (11,11), (-1,-1) , criteria )
-
-    cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , improved_corners , corners_found)
-    cv2.imwrite("image1_with_corners.jpg", img)
-else : 
-    print("Corners were not successfully found .")
-
 # ====================================================================================
 # undistort with images [1-4] 
 # find corners in multiple images : 
