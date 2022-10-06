@@ -63,19 +63,19 @@ for filename in os.listdir(images_directory):
     else : 
         print("Corners were not successfully found in " , filename)
 
-_, mtx, dist, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+_, mtx, dist_coeffs, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 print("Camera matrix : \n")
 print(mtx)
-print("dist : \n")
-print(dist)
+print("dist_coeffs : \n")
+print(dist_coeffs)
 
 dirname = os.path.dirname(__file__)
 path = os.path.join(dirname , 'images/img5.png' )
 
 img = cv2.imread(path)
 h,w = img.shape[:2]
-newCameraMatrix,roi = cv2.getOptimalNewCameraMatrix(mtx,dist , (w,h) , 1, (w,h))
-dst = cv2.undistort(img , mtx, dist, None, newCameraMatrix)
+newCameraMatrix,roi = cv2.getOptimalNewCameraMatrix(mtx,dist_coeffs , (w,h) , 1, (w,h))
+dst = cv2.undistort(img , mtx, dist_coeffs, None, newCameraMatrix)
 
 x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
