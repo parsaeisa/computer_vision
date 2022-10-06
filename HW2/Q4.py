@@ -7,9 +7,6 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 corner_count_x = 24
 corner_count_y = 17
 
-# ====================================================================================
-# undistort with images [1-4] 
-# find corners in multiple images : 
 images_directory = 'images'
 
 def img1to4 (filename):
