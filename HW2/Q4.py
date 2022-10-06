@@ -4,6 +4,8 @@ import cv2
 import os
 import numpy as np
 
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+
 # undistort with just one image 
 dirname = os.path.dirname(__file__)
 path = os.path.join(dirname , 'images/img1.png' )
@@ -16,11 +18,12 @@ corner_count_y = 17
 
 gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
 
-# mention github link , where you find out what is outputs 
 corners_found , corners = cv2.findChessboardCorners(gray , (corner_count_y,corner_count_x) , None )
 
 if corners_found :
-    cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , corners , corners_found)
+    improved_corners = cv2.cornerSubPix(gray , corners , (11,11), (-1,-1) , criteria )
+
+    cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , improved_corners , corners_found)
     cv2.imwrite("image_with_corners.jpg", img)
 else : 
     print("Corners were not successfully found .")
@@ -38,7 +41,6 @@ prev_img_shape = None
 objpoints = []
 
 imgpoints = []
-criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 for filename in os.listdir(images_directory):
     if filename == 'img5.png':
