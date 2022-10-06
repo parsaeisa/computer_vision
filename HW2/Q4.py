@@ -31,7 +31,6 @@ def undistort_picture ( images_directory , condition, result_path ):
         if condition(filename) :
             continue
 
-        print(filename)
         file_path = os.path.join(images_directory , filename)
         img = cv2.imread(file_path ,1)
         gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
@@ -50,10 +49,9 @@ def undistort_picture ( images_directory , condition, result_path ):
             print("Corners were not successfully found in " , filename)
 
     _, mtx, dist_coeffs, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-    print("Camera matrix : \n")
-    print(mtx)
-    print("dist_coeffs : \n")
+    print("dist_coeffs respectively k1 , k2 , p1 , p2 , k3:")
     print(dist_coeffs)
+    print('\n')
 
     dirname = os.path.dirname(__file__)
     path = os.path.join(dirname , 'images/img5.png' )
