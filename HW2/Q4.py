@@ -1,5 +1,3 @@
-from cgi import print_environ
-from msilib.schema import Directory
 import cv2
 import os
 import numpy as np
