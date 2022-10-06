@@ -32,7 +32,7 @@ def undistort_picture ( images_directory , condition, result_path ):
         img = cv2.imread(file_path ,1)
         gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
 
-        corners_found , corners = cv2.findChessboardCorners(gray , (corner_count_y,corner_count_x) , None )
+        corners_found , corners = cv2.findChessboardCorners(img , (corner_count_y,corner_count_x) , None )
 
         if corners_found :
             improved_corners = cv2.cornerSubPix(gray , corners , (11 , 11), (-1,-1) , criteria )
