@@ -4,15 +4,15 @@ import numpy as np
 
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
+corner_count_x = 24
+corner_count_y = 17
+
 # undistort with just one image 
 dirname = os.path.dirname(__file__)
 path = os.path.join(dirname , 'images/img1.png' )
 
 img = cv2.imread(path ,1)
 print(img.shape)
-
-corner_count_x = 24
-corner_count_y = 17
 
 gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
 
@@ -22,7 +22,7 @@ if corners_found :
     improved_corners = cv2.cornerSubPix(gray , corners , (11,11), (-1,-1) , criteria )
 
     cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , improved_corners , corners_found)
-    cv2.imwrite("image_with_corners.jpg", img)
+    cv2.imwrite("image1_with_corners.jpg", img)
 else : 
     print("Corners were not successfully found .")
 
@@ -31,52 +31,61 @@ else :
 # find corners in multiple images : 
 images_directory = 'images'
 
-objp = np.zeros((1,corner_count_x * corner_count_y , 3) , np.float32)
-objp[0,:,:2] = np.mgrid[0:corner_count_y , 0:corner_count_x].T.reshape(-1,2)
+def img1to4 (filename):
+    return filename == 'img5.png'
 
-prev_img_shape = None
+def just_img1 (filename):
+    return filename != 'img1.png'
 
-objpoints = []
+def undistort_picture ( images_directory , condition, result_path ):
+    objp = np.zeros((1,corner_count_x * corner_count_y , 3) , np.float32)
+    objp[0,:,:2] = np.mgrid[0:corner_count_y , 0:corner_count_x].T.reshape(-1,2)
 
-imgpoints = []
+    objpoints = []
 
-for filename in os.listdir(images_directory):
-    if filename == 'img5.png':
-        continue
-    file_path = os.path.join(images_directory , filename)
+    imgpoints = []
 
-    img = cv2.imread(path ,1)
+    for filename in os.listdir(images_directory):        
 
-    gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
+        if condition(filename) :
+            continue
 
-    corners_found , corners = cv2.findChessboardCorners(gray , (corner_count_y,corner_count_x) , None )
+        print(filename)
+        file_path = os.path.join(images_directory , filename)
+        img = cv2.imread(file_path ,1)
+        gray = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
 
-    if corners_found :
-        objpoints.append(objp)
-        imgpoints.append(corners)
+        corners_found , corners = cv2.findChessboardCorners(gray , (corner_count_y,corner_count_x) , None )
 
-        # improved_corners = cv2.cornerSubPix(gray , corners , (corner_count_y , corner_count_x),
-        # (-1,-1) , criteria )
+        if corners_found :
+            improved_corners = cv2.cornerSubPix(gray , corners , (11 , 11), (-1,-1) , criteria )
 
-        img = cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , corners , corners_found)
+            objpoints.append(objp)
+            imgpoints.append(improved_corners)
 
-    else : 
-        print("Corners were not successfully found in " , filename)
+            img = cv2.drawChessboardCorners(img , (corner_count_y , corner_count_x) , improved_corners , corners_found)
 
-_, mtx, dist_coeffs, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-print("Camera matrix : \n")
-print(mtx)
-print("dist_coeffs : \n")
-print(dist_coeffs)
+        else : 
+            print("Corners were not successfully found in " , filename)
 
-dirname = os.path.dirname(__file__)
-path = os.path.join(dirname , 'images/img5.png' )
+    _, mtx, dist_coeffs, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+    print("Camera matrix : \n")
+    print(mtx)
+    print("dist_coeffs : \n")
+    print(dist_coeffs)
 
-img = cv2.imread(path)
-h,w = img.shape[:2]
-newCameraMatrix,roi = cv2.getOptimalNewCameraMatrix(mtx,dist_coeffs , (w,h) , 1, (w,h))
-dst = cv2.undistort(img , mtx, dist_coeffs, None, newCameraMatrix)
+    dirname = os.path.dirname(__file__)
+    path = os.path.join(dirname , 'images/img5.png' )
 
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv2.imwrite('calibresult.png', dst)
+    img = cv2.imread(path)
+    h,w = img.shape[:2]
+    newCameraMatrix,roi = cv2.getOptimalNewCameraMatrix(mtx,dist_coeffs , (w,h) , 1, (w,h))
+    dst = cv2.undistort(img , mtx, dist_coeffs, None, newCameraMatrix)
+
+    x, y, w, h = roi
+    dst = dst[y:y+h, x:x+w]
+    cv2.imwrite(result_path, dst)
+
+undistort_picture(images_directory , img1to4 , 'calibrate_result_1to4.png' )
+
+undistort_picture(images_directory , just_img1 , 'calibrate_result_img1.png' )
