@@ -25,6 +25,7 @@ if corners_found :
 else : 
     print("Corners were not successfully found .")
 
+# ====================================================================================
 # undistort with images [1-4] 
 # find corners in multiple images : 
 images_directory = 'images'
@@ -40,6 +41,8 @@ imgpoints = []
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 for filename in os.listdir(images_directory):
+    if filename == 'img5.png':
+        continue
     file_path = os.path.join(images_directory , filename)
 
     img = cv2.imread(path ,1)
@@ -60,13 +63,20 @@ for filename in os.listdir(images_directory):
     else : 
         print("Corners were not successfully found in " , filename)
 
-ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-print(">>>>" , ret)
+_, mtx, dist, _,_ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 print("Camera matrix : \n")
 print(mtx)
 print("dist : \n")
 print(dist)
-print("rvecs : \n")
-print(rvecs)
-print("tvecs : \n")
-print(tvecs)
+
+dirname = os.path.dirname(__file__)
+path = os.path.join(dirname , 'images/img5.png' )
+
+img = cv2.imread(path)
+h,w = img.shape[:2]
+newCameraMatrix,roi = cv2.getOptimalNewCameraMatrix(mtx,dist , (w,h) , 1, (w,h))
+dst = cv2.undistort(img , mtx, dist, None, newCameraMatrix)
+
+x, y, w, h = roi
+dst = dst[y:y+h, x:x+w]
+cv2.imwrite('calibresult.png', dst)
