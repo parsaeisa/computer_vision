@@ -9,9 +9,12 @@ plt.hist(image.flatten(),256,[0,256], color = 'r')
 plt.show()
 ```
 
+<br />
+
 ### Histogram equalization
 
-**cv2.equalizeHist(img)** : is a method in openCV which equalize Histograms .
+**cv2.equalizeHist(img)** : is a method in openCV which equalize Histograms . output of this method 
+is an image with equalized histogram . 
 
 **CLAHE** : the code below applies CLAHE to an image :
 (img is the output of imread method )
