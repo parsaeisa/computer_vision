@@ -36,3 +36,14 @@ The maximum derivative in a picture is 255 ( two adjacent pixels , one of them i
 and 2nd param should be smaller than 3rd parameter . 
 
 mid level edges must be between these two parameters --> refer to Canny structure . 
+
+## Bluring
+
+Bluring is made when a **Gaussian filter** is applied to a picture . code : 
+
+* Gaussian filter is an averaging filter . Its size can be 3 , 5 , 7 etc . 
+
+```python
+kernel = np.ones((5,5),np.float32)/25
+dst = cv2.filter2D(im,-1,kernel)
+```
