@@ -37,6 +37,10 @@ and 2nd param should be smaller than 3rd parameter .
 
 mid level edges must be between these two parameters --> refer to Canny structure . 
 
+```python
+edges = cv2.Canny(im, 50, 200)
+```
+
 ## Bluring
 
 Bluring is made when a **Gaussian filter** is applied to a picture . code : 
