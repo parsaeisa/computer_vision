@@ -51,3 +51,16 @@ Bluring is made when a **Gaussian filter** is applied to a picture . code :
 kernel = np.ones((5,5),np.float32)/25
 dst = cv2.filter2D(im,-1,kernel)
 ```
+
+## Contours
+
+In OpenCV, finding contours is like finding white object from black background. So remember, object to be found should be white and background should be black. 
+
+An image should be tresholded or should use Canny edge detector to be black and white before applying findContours on it . 
+
+Contours has some features like : 
+* area : contourArea method which takes a single contour 
+* perimeter : or arcLength
+* centroid
+* bounding box
+
