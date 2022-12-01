@@ -79,3 +79,18 @@ Contours has some features like :
 * centroid
 * bounding box
 
+## Otsu
+
+Before using otsu don't forget to convert image's color to gray . 
+
+Example of otsu : 
+```python
+ret,otsu_thresh = cv2.threshold(gray,127,200,cv2.THRESH_BINARY)
+```
+
+Example of adaptive thresholding : 
+```pytohn
+ada_otsu_thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+```
+
+These are just examples , based on your problem change their inputs .
