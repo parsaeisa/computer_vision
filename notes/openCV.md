@@ -1,5 +1,20 @@
 # OpenCV
 
+We can show an image using openCV.imshow() , but in colab its better to use plt.imshow : 
+```python
+plt.imshow(img , cmap='gray')
+```
+
+* with cmap argument you can choose the color of your image . 
+
+## Convert color
+The images that are being scanned by imread , is BGR at first . 
+
+Converting a picture to gray : 
+```python
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+```
+
 ## Histogram
 
 drawing the histogram of a picture with 256 brightness layers : 
