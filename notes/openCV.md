@@ -1,5 +1,33 @@
 # OpenCV
 
+`py-tesseract` is used to convert image to string . It supports Persian language . 
+
+Installation for linux : 
+```bash
+!sudo apt-get install tesseract-ocr-fas
+```
+
+Installation for python : 
+```bash
+!sudo apt install tesseract-ocr
+!pip install pytesseract
+```
+
+We can show an image using openCV.imshow() , but in colab its better to use plt.imshow : 
+```python
+plt.imshow(img , cmap='gray')
+```
+
+* with cmap argument you can choose the color of your image . 
+
+## Convert color
+The images that are being scanned by imread , is BGR at first . 
+
+Converting a picture to gray : 
+```python
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+```
+
 ## Histogram
 
 drawing the histogram of a picture with 256 brightness layers : 
@@ -64,3 +92,18 @@ Contours has some features like :
 * centroid
 * bounding box
 
+## Otsu
+
+Before using otsu don't forget to convert image's color to gray . 
+
+Example of otsu : 
+```python
+ret,otsu_thresh = cv2.threshold(gray,127,200,cv2.THRESH_BINARY)
+```
+
+Example of adaptive thresholding : 
+```pytohn
+ada_otsu_thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+```
+
+These are just examples , based on your problem change their inputs .
