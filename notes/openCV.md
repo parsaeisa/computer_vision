@@ -1,5 +1,18 @@
 # OpenCV
 
+`py-tesseract` is used to convert image to string . It supports Persian language . 
+
+Installation for linux : 
+```bash
+!sudo apt-get install tesseract-ocr-fas
+```
+
+Installation for python : 
+```bash
+!sudo apt install tesseract-ocr
+!pip install pytesseract
+```
+
 We can show an image using openCV.imshow() , but in colab its better to use plt.imshow : 
 ```python
 plt.imshow(img , cmap='gray')
