@@ -121,3 +121,12 @@ There is also other methods which are usefull :
 `contourArea` computes the area in a cnt . 
 
 `convexHull` computes the area of smallest convex shape that an specific shape fits in . We can act the output of this method like a cnt and compute its area . 
+
+`drawContours` draws shapes on our image . 
+
+This is the code of drawing a convex hull of a shape : 
+```python
+hull = cv2.convexHull(cnt)
+x1, y1 = hull[0][0]
+img = cv2.drawContours(img,[hull],0,(255,255,0),2)
+```
