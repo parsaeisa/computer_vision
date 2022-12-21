@@ -118,7 +118,9 @@ contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIM
 
 There is also other methods which are usefull : 
 
-`contourArea` computes the area in a cnt . 
+`contourArea` computes the **area** in a cnt . 
+
+`arcLength` computes the **perimeter** of a cnt .
 
 `convexHull` computes the area of smallest convex shape that an specific shape fits in . We can act the output of this method like a cnt and compute its area . 
 
