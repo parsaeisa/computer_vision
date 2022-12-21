@@ -107,3 +107,11 @@ ada_otsu_thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, c
 ```
 
 These are just examples , based on your problem change their inputs .
+
+## Contours
+
+Open cv has a method named find_contours which detects the objects in the image . For each object in the image , it returns a cnt . 
+
+```python
+contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+```
