@@ -115,3 +115,9 @@ Open cv has a method named find_contours which detects the objects in the image 
 ```python
 contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 ```
+
+There is also other methods which are usefull : 
+
+`contourArea` computes the area in a cnt . 
+
+`convexHull` computes the area of smallest convex shape that an specific shape fits in . We can act the output of this method like a cnt and compute its area . 
