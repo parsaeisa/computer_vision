@@ -132,3 +132,7 @@ hull = cv2.convexHull(cnt)
 x1, y1 = hull[0][0]
 img = cv2.drawContours(img,[hull],0,(255,255,0),2)
 ```
+
+https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+
+
