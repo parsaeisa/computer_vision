@@ -107,3 +107,49 @@ ada_otsu_thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, c
 ```
 
 These are just examples , based on your problem change their inputs .
+
+## Contours
+
+Open cv has a method named find_contours which detects the objects in the image . For each object in the image , it returns a cnt . 
+
+```python
+contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+```
+
+There is also other methods which are usefull : 
+
+`contourArea` computes the **area** in a cnt . 
+
+`arcLength` computes the **perimeter** of a cnt .
+
+`convexHull` computes the area of smallest convex shape that an specific shape fits in . We can act the output of this method like a cnt and compute its area . 
+
+`drawContours` draws shapes on our image . 
+
+This is the code of drawing a convex hull of a shape : 
+```python
+hull = cv2.convexHull(cnt)
+x1, y1 = hull[0][0]
+img = cv2.drawContours(img,[hull],0,(255,255,0),2)
+```
+
+https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+
+## LBP
+
+Local binary pattern which shows us very useful information about an image . 
+
+`skimage` has a method that produces this . 
+
+```python
+lbp = feature.local_binary_pattern(image, numPoints,
+			radius, method="uniform") 
+plt.imshow(lbp)
+```
+and we can convert it to histogram with the code below : 
+
+```python
+(hist, _) = np.histogram(lbp.ravel(),
+			bins=np.arange(0, numPoints + 3),
+			range=(0, numPoints + 2))
+```
