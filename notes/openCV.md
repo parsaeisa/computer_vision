@@ -135,4 +135,21 @@ img = cv2.drawContours(img,[hull],0,(255,255,0),2)
 
 https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
 
+## LBP
 
+Local binary pattern which shows us very useful information about an image . 
+
+`skimage` has a method that produces this . 
+
+```python
+lbp = feature.local_binary_pattern(image, numPoints,
+			radius, method="uniform") 
+plt.imshow(lbp)
+```
+and we can convert it to histogram with the code below : 
+
+```python
+(hist, _) = np.histogram(lbp.ravel(),
+			bins=np.arange(0, numPoints + 3),
+			range=(0, numPoints + 2))
+```
