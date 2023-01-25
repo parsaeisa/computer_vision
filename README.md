@@ -1,8 +1,17 @@
 # computer_vision
 
-## computer vision course , instructed by Dr.Mohammadi . 
+Computer vision course , instructed by Dr.Mohammadi . 
 
 In this repo you can see my answers to assignments and some notes for openCV python library . 
+
+What I learned during the practices : 
+* Image formation
+* Image processing in spatial domain
+* Image processing in frequency domain
+* Edge detectors like Canny and Sobel 
+* Morphological process
+* Finding key points and applying most suitable transforms
+* Deep networks like U-Net 
 
 ### foot of koozeh-gari 
 
