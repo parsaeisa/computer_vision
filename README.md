@@ -9,9 +9,12 @@ What I learned during the practices :
 * Image processing in spatial domain
 * Image processing in frequency domain
 * Edge detectors like Canny and Sobel 
-* Morphological process
+* Morphological process ( Dilate, Erode, Open, Close, Hit or Miss)
 * Finding key points and applying most suitable transforms
-* Deep networks like U-Net 
+* Deep networks like U-Net
+* Descriptors (Shape, Color, Texture)
+* Object detection
+* Image segmentation
 
 ### foot of koozeh-gari 
 
